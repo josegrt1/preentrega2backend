@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Remera Oversize",
+    "description": "Remera negra oversize",
+    "code": "RM001",
+    "price": 18000,
+    "status": true,
+    "stock": 40,
+    "category": "Ropa",
+    "thumbnails": []
+  },
+  {
+    "id": 3,
+    "title": "gorra",
+    "description": "gorra negra",
+    "code": "g3",
+    "price": 50000,
+    "status": true,
+    "stock": 10,
+    "category": "accesorios",
+    "thumbnails": []
+  },
+  {
+    "id": 4,
+    "title": "pantalon",
+    "description": "jean azul rey",
+    "code": "G4",
+    "price": 6000,
+    "status": true,
+    "stock": 10,
+    "category": "vestimenta",
+    "thumbnails": []
+  },
+  {
+    "id": 5,
+    "title": "zapatillas ",
+    "description": "voladoras",
+    "code": "G6",
+    "price": 110000,
+    "status": true,
+    "stock": 5,
+    "category": "ropa",
+    "thumbnails": []
+  },
+  {
+    "id": 6,
+    "title": "Remera comun",
+    "description": "vuelo alto",
+    "code": "AB1",
+    "price": 16000,
+    "status": true,
+    "stock": 10,
+    "category": "ropa",
+    "thumbnails": []
+  },
+  {
+    "id": 7,
+    "title": "buzo",
+    "description": "Aeroplan",
+    "code": "CTJ5",
+    "price": 20000,
+    "status": true,
+    "stock": 10,
+    "category": "campera",
+    "thumbnails": []
+  }
+]

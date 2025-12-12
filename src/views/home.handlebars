@@ -1,0 +1,41 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Listado de productos</h1>
+      <p class="page-subtitle">
+        Esta es la vista tradicional (no en tiempo real), renderizada con Handlebars.
+      </p>
+    </div>
+
+    <nav class="page-actions">
+      <a href="/realtimeproducts" class="btn btn-outline">Ver en tiempo real</a>
+      <a href="/api/products" class="btn btn-ghost" target="_blank">Ver API JSON</a>
+    </nav>
+  </header>
+
+  {{#if products.length}}
+    <section class="products-grid">
+      {{#each products}}
+        <article class="product-card">
+          <header class="product-card__header">
+            <h2 class="product-card__title">{{this.title}}</h2>
+            <span class="product-card__price">${{this.price}}</span>
+          </header>
+
+          <p class="product-card__description">
+            {{this.description}}
+          </p>
+
+          <ul class="product-card__meta">
+            <li><strong>Categoría:</strong> {{this.category}}</li>
+            <li><strong>Código:</strong> {{this.code}}</li>
+            <li><strong>Stock:</strong> {{this.stock}}</li>
+            <li><strong>ID:</strong> {{this.id}}</li>
+          </ul>
+        </article>
+      {{/each}}
+    </section>
+  {{else}}
+    <p>No hay productos cargados todavía. Probá crear alguno desde la API o la vista en tiempo real.</p>
+  {{/if}}
+</section>
