@@ -1,55 +1,48 @@
-# Preentrega 2 – Backend I
+# Entrega Final - Backend Ecommerce
 
-Proyecto realizado para la preentrega 2 del curso **Backend I (Coderhouse)**.
+Backend de e-commerce desarrollado con **Node.js + Express**, persistencia con **MongoDB/Mongoose**, vistas con **Handlebars** y actualización en tiempo real con **Socket.IO**.
 
-El proyecto consiste en un servidor hecho con **Node.js y Express**, que permite manejar productos y carritos, utilizando **Handlebars** para las vistas y **Socket.io** para la actualización en tiempo real.
-
----
-
-## Tecnologías usadas
-
+## ✅ Tecnologías
 - Node.js
 - Express
-- Express-Handlebars
-- Socket.io
-- Nodemon (para desarrollo)
+- MongoDB + Mongoose
+- express-handlebars
+- mongoose-paginate-v2
+- Socket.IO
+- dotenv
 
----
+🌐 Rutas (Views)
+/products → Listado de productos con paginación
 
-## Cómo ejecutar el proyecto
+/realtimeproducts → Alta y baja de productos en tiempo real (Socket.IO)
 
-1. Instalar las dependencias:
+/carts/:cid → Vista del carrito con total
 
-```bash
-npm install
+🔌 Rutas (API)
+Productos
+GET /api/products (paginación + filtros + sort)
 
-Levantar el servidor:
-npm start
+Query params: limit, page, sort=asc|desc, query
 
-El servidor corre en:
-http://localhost:8080
+GET /api/products/:pid
 
-Vistas:
-- /
- Muestra el listado de productos renderizado con Handlebars.
+POST /api/products
 
-- /realtimeproducts
- Permite crear y eliminar productos y ver los cambios en tiempo real.
+PUT /api/products/:pid
 
- API:
-- Productos
-*GET /api/products
-*GET /api/products/:pid
-*POST /api/products
-*PUT /api/products/:pid
 DELETE /api/products/:pid
-- Carritos
-*POST /api/carts
-*GET /api/carts/:cid
-*POST /api/carts/:cid/product/:pid
 
-Persistencia
-Los datos se guardan en archivos JSON:
--src/data/products.json
--src/data/carts.json
+Carritos
+GET /api/carts
 
+GET /api/carts/:cid
+
+(y las rutas de agregar/eliminar productos al carrito según implementación)
+
+📌 Notas
+.env está ignorado por seguridad (.gitignore).
+
+node_modules no se versiona.
+
+yaml
+Copiar código
