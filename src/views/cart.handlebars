@@ -1,0 +1,44 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <h1 class="page-title">Carrito</h1>
+      <p class="page-subtitle">
+        Carrito ID: <strong>{{cartId}}</strong>
+      </p>
+    </div>
+
+    <nav class="page-actions">
+      <a href="/products" class="btn btn-outline">Productos</a>
+      <a href="/realtimeproducts" class="btn btn-outline">Tiempo real</a>
+      <a href="/api/carts/{{cartId}}" class="btn btn-ghost" target="_blank">Ver JSON</a>
+    </nav>
+  </header>
+
+  {{#if hasItems}}
+    <section class="products-grid">
+      {{#each items}}
+        <article class="product-card">
+          <header class="product-card__header">
+            <h2 class="product-card__title">{{title}}</h2>
+            <span class="product-card__price">${{price}}</span>
+          </header>
+
+          <ul class="product-card__meta">
+            <li><strong>Cantidad:</strong> {{quantity}}</li>
+            <li><strong>Subtotal:</strong> ${{subtotal}}</li>
+            <li><strong>ID producto:</strong> {{productId}}</li>
+          </ul>
+        </article>
+      {{/each}}
+    </section>
+
+    <footer class="page-footer">
+      <h3 class="page-total">Total del carrito: ${{total}}</h3>
+    </footer>
+  {{else}}
+    <p>
+      Este carrito está vacío.  
+      Podés agregar productos desde la API y luego recargar la página.
+    </p>
+  {{/if}}
+</section>
