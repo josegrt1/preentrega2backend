@@ -6,10 +6,14 @@ import http from "http";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import passport from "passport";
 
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
+import sessionsRouter from "./routes/sessions.router.js";
+import { initializePassport } from "./config/passport.js";
 
 dotenv.config();
 
@@ -27,11 +31,17 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // ✅ para leer cookies JWT
 app.use(express.static(path.join(__dirname, "public")));
+
+initializePassport();
+app.use(passport.initialize());
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
+
+app.use("/api/sessions", sessionsRouter);
 
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);

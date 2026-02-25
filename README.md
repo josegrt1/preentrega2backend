@@ -1,55 +1,99 @@
-# Preentrega 2 – Backend I
+# Backend II - Primera Entrega
 
-Proyecto realizado para la preentrega 2 del curso **Backend I (Coderhouse)**.
+Implementación de un sistema de autenticación y autorización con JWT utilizando Passport sobre un ecommerce desarrollado con Node.js, Express y MongoDB.
 
-El proyecto consiste en un servidor hecho con **Node.js y Express**, que permite manejar productos y carritos, utilizando **Handlebars** para las vistas y **Socket.io** para la actualización en tiempo real.
-
----
-
-## Tecnologías usadas
+## 🚀 Tecnologías utilizadas
 
 - Node.js
 - Express
-- Express-Handlebars
+- MongoDB (Mongoose)
+- Passport
+- JWT (jsonwebtoken)
+- bcrypt
 - Socket.io
-- Nodemon (para desarrollo)
+- Handlebars
 
 ---
 
-## Cómo ejecutar el proyecto
+## 📦 Instalación
 
-1. Instalar las dependencias:
+1. Clonar el repositorio:
 
 ```bash
+git clone <URL_DEL_REPO>
+cd backend-II
+
+Instalar dependencias:
+
 npm install
 
-Levantar el servidor:
-npm start
+Crear archivo .env basado en .env.example:
 
-El servidor corre en:
+MONGO_URL=tu_string_de_mongo
+PORT=8080
+JWT_SECRET=tu_clave_secreta
+JWT_COOKIE_NAME=authToken
+
+Ejecutar el servidor:
+
+npm run dev
+
+Servidor disponible en:
+
 http://localhost:8080
+🔐 Endpoints de Autenticación
+📝 Registro
 
-Vistas:
-- /
- Muestra el listado de productos renderizado con Handlebars.
+POST /api/sessions/register
 
-- /realtimeproducts
- Permite crear y eliminar productos y ver los cambios en tiempo real.
+{
+  "first_name": "Jose",
+  "last_name": "Rodriguez",
+  "email": "jose@test.com",
+  "age": 30,
+  "password": "1234"
+}
+🔑 Login
 
- API:
-- Productos
-*GET /api/products
-*GET /api/products/:pid
-*POST /api/products
-*PUT /api/products/:pid
-DELETE /api/products/:pid
-- Carritos
-*POST /api/carts
-*GET /api/carts/:cid
-*POST /api/carts/:cid/product/:pid
+POST /api/sessions/login
 
-Persistencia
-Los datos se guardan en archivos JSON:
--src/data/products.json
--src/data/carts.json
+{
+  "email": "jose@test.com",
+  "password": "1234"
+}
 
+Genera un token JWT almacenado en cookie.
+
+👤 Usuario Actual
+
+GET /api/sessions/current
+
+Devuelve los datos del usuario autenticado mediante JWT.
+
+🛡️ Características implementadas
+
+Modelo User con:
+
+first_name
+
+last_name
+
+email (único)
+
+age
+
+password (hash bcrypt)
+
+cart (referencia a Cart)
+
+role (default: user)
+
+Encriptación de contraseña con bcrypt.hashSync
+
+Estrategia Passport Local para login
+
+Estrategia Passport JWT
+
+Estrategia "current" para validación de usuario
+
+Sistema de autenticación mediante JWT en cookies
