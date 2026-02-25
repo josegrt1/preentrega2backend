@@ -1,48 +1,49 @@
-# Entrega Final - Backend Ecommerce
+## 🔐 Sistema de Autenticación
 
-Backend de e-commerce desarrollado con **Node.js + Express**, persistencia con **MongoDB/Mongoose**, vistas con **Handlebars** y actualización en tiempo real con **Socket.IO**.
+Se implementó un sistema completo de autenticación y autorización utilizando:
 
-## ✅ Tecnologías
-- Node.js
-- Express
-- MongoDB + Mongoose
-- express-handlebars
-- mongoose-paginate-v2
-- Socket.IO
-- dotenv
+- Passport (Local + JWT)
+- bcrypt para encriptación de contraseñas
+- JSON Web Tokens almacenados en cookies httpOnly
 
-🌐 Rutas (Views)
-/products → Listado de productos con paginación
+---
 
-/realtimeproducts → Alta y baja de productos en tiempo real (Socket.IO)
+### 📝 Registro de Usuario
 
-/carts/:cid → Vista del carrito con total
+POST `/api/sessions/register`
 
-🔌 Rutas (API)
-Productos
-GET /api/products (paginación + filtros + sort)
+```json
+{
+  "first_name": "Jose",
+  "last_name": "Rodriguez",
+  "email": "jose@test.com",
+  "age": 30,
+  "password": "1234"
+}
 
-Query params: limit, page, sort=asc|desc, query
+La contraseña se almacena en formato hash utilizando bcrypt.
 
-GET /api/products/:pid
+Al registrarse se crea automáticamente un carrito asociado al usuario.
 
-POST /api/products
+🔑 Login
 
-PUT /api/products/:pid
+POST /api/sessions/login
 
-DELETE /api/products/:pid
+{
+  "email": "jose@test.com",
+  "password": "1234"
+}
 
-Carritos
-GET /api/carts
+Si las credenciales son correctas, se genera un JWT.
 
-GET /api/carts/:cid
+El token se guarda en una cookie httpOnly.
 
-(y las rutas de agregar/eliminar productos al carrito según implementación)
+👤 Usuario Actual
 
-📌 Notas
-.env está ignorado por seguridad (.gitignore).
+GET /api/sessions/current
 
-node_modules no se versiona.
+Valida el JWT almacenado en la cookie.
 
-yaml
-Copiar código
+Devuelve los datos del usuario autenticado.
+
+Si el token es inválido o inexistente, devuelve error 401.
