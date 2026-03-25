@@ -53,7 +53,6 @@ src/
   services/
   utils/
   app.js
-  
 Instalación
 
 Clonar el repositorio:
@@ -83,7 +82,6 @@ Importante: el repositorio no incluye credenciales reales ni datos sensibles.
 Scripts
 npm run dev
 npm start
-
 Endpoints principales
 Sessions
 POST /api/sessions/register
@@ -91,14 +89,12 @@ POST /api/sessions/login
 GET /api/sessions/current
 POST /api/sessions/forgot-password
 POST /api/sessions/reset-password
-
 Products
 GET /api/products
 GET /api/products/:pid
 POST /api/products
 PUT /api/products/:pid
 DELETE /api/products/:pid
-
 Carts
 POST /api/carts
 GET /api/carts
@@ -107,20 +103,17 @@ POST /api/carts/:cid/products/:pid
 DELETE /api/carts/:cid/products/:pid
 DELETE /api/carts/:cid
 POST /api/carts/:cid/purchase
-
 Seguridad y permisos
 Solo el administrador puede crear, actualizar y eliminar productos.
 Solo el usuario dueño del carrito puede consultarlo, modificarlo o finalizar la compra.
 La ruta /current está protegida con estrategia JWT.
 El restablecimiento de contraseña usa token con expiración.
-
 Flujo de recuperación de contraseña
 El usuario solicita recuperación de contraseña.
 El sistema envía un correo con enlace de recuperación.
 El token expira luego de 1 hora.
 La nueva contraseña no puede ser igual a la anterior.
 Luego el usuario puede iniciar sesión con la nueva contraseña.
-
 Flujo de compra
 El usuario autenticado ejecuta POST /api/carts/:cid/purchase.
 Se valida que el carrito pertenezca al usuario.
@@ -128,3 +121,11 @@ Se verifica el stock de los productos.
 Se descuenta stock de los productos disponibles.
 Se genera un ticket con código, monto y comprador.
 El carrito se actualiza dejando solo productos no procesados.
+Autor
+
+José Gregorio Rodriguez Tabares
+
+GitHub: josegrt1
+Nota
+
+Proyecto desarrollado como entrega final del curso de Backend.
