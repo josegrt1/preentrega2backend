@@ -53,23 +53,19 @@ src/
   services/
   utils/
   app.js
+  
 Instalación
-
 Clonar el repositorio:
-
 git clone https://github.com/josegrt1/preentrega2backend.git
 
 Entrar a la carpeta del proyecto:
-
 cd preentrega2backend
 
 Instalar dependencias:
-
 npm install
 Variables de entorno
 
 Crear un archivo .env en la raíz del proyecto con una estructura como esta:
-
 PORT=8080
 MONGO_URL=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
