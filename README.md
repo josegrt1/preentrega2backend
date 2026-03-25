@@ -1,6 +1,6 @@
 # Backend Entrega Final
 
-Proyecto final de backend desarrollado en Node.js + Express, aplicando arquitectura por capas, patrón Repository, autenticación con JWT, autorización por roles, recuperación de contraseña por correo y lógica de compra con generación de ticket.
+Proyecto final de backend desarrollado con Node.js, Express y MongoDB, aplicando arquitectura por capas, patrón Repository, autenticación con JWT, autorización por roles, recuperación de contraseña por correo y lógica de compra con ticket.
 
 ## Tecnologías utilizadas
 
@@ -14,12 +14,13 @@ Proyecto final de backend desarrollado en Node.js + Express, aplicando arquitect
 - Nodemailer
 - Cookie-parser
 - Dotenv
+- Socket.io
 
 ## Funcionalidades principales
 
 - Registro e inicio de sesión de usuarios
 - Autenticación con JWT
-- Ruta `/current` con DTO para evitar exponer datos sensibles
+- Ruta `/current` protegida
 - Middleware de autorización por roles
 - Gestión de productos
 - Gestión de carritos
@@ -44,7 +45,6 @@ src/
   config/
   controllers/
   dao/
-  docs/
   dto/
   middlewares/
   models/
@@ -55,32 +55,33 @@ src/
   app.js
 Instalación
 
-Clona el repositorio:
+Clonar el repositorio:
 
 git clone https://github.com/josegrt1/preentrega2backend.git
 
-Entra a la carpeta del proyecto:
+Entrar a la carpeta del proyecto:
 
 cd preentrega2backend
 
-Instala las dependencias:
+Instalar dependencias:
 
 npm install
 Variables de entorno
 
-Crea un archivo .env en la raíz del proyecto con las siguientes variables:
+Crear un archivo .env en la raíz del proyecto con una estructura como esta:
 
 PORT=8080
-MONGO_URL=tu_cadena_de_conexion_mongodb
-JWT_SECRET=tu_clave_secreta_jwt
-MAIL_USER=tu_correo
-MAIL_PASS=tu_clave_de_aplicacion
-PERSISTENCE=MONGO
-Ejecución
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+JWT_COOKIE_NAME=authToken
+MAIL_USER=your_email
+MAIL_PASS=your_app_password
 
-Para correr el proyecto en modo desarrollo:
+Importante: el repositorio no incluye credenciales reales ni datos sensibles.
 
+Scripts
 npm run dev
+npm start
 Endpoints principales
 Sessions
 POST /api/sessions/register
@@ -96,26 +97,27 @@ PUT /api/products/:pid
 DELETE /api/products/:pid
 Carts
 POST /api/carts
+GET /api/carts
 GET /api/carts/:cid
-POST /api/carts/:cid/product/:pid
-PUT /api/carts/:cid
-PUT /api/carts/:cid/products/:pid
+POST /api/carts/:cid/products/:pid
 DELETE /api/carts/:cid/products/:pid
 DELETE /api/carts/:cid
 POST /api/carts/:cid/purchase
+Seguridad y permisos
+Solo el administrador puede crear, actualizar y eliminar productos.
+Solo el usuario dueño del carrito puede consultarlo, modificarlo o finalizar la compra.
+La ruta /current está protegida con estrategia JWT.
+El restablecimiento de contraseña usa token con expiración.
 Flujo de recuperación de contraseña
-El usuario solicita recuperación desde /forgot-password
-Se envía un correo con enlace de recuperación
-El token expira en 1 hora
-El sistema valida que la nueva contraseña no sea igual a la anterior
-Luego el usuario puede iniciar sesión con la nueva contraseña
+El usuario solicita recuperación de contraseña.
+El sistema envía un correo con enlace de recuperación.
+El token expira luego de 1 hora.
+La nueva contraseña no puede ser igual a la anterior.
+Luego el usuario puede iniciar sesión con la nueva contraseña.
 Flujo de compra
-El usuario autenticado compra su carrito con POST /api/carts/:cid/purchase
-Se valida que el carrito pertenezca al usuario
-Se verifica stock de los productos
-Se descuenta stock de los productos disponibles
-Se genera un ticket con:
-código
-monto
-comprador
-Se actualiza el carrito dejando fuera los productos comprados
+El usuario autenticado ejecuta POST /api/carts/:cid/purchase.
+Se valida que el carrito pertenezca al usuario.
+Se verifica el stock de los productos.
+Se descuenta stock de los productos disponibles.
+Se genera un ticket con código, monto y comprador.
+El carrito se actualiza dejando solo productos no procesados.
